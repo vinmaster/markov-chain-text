@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markov Chain</title>
+    <link href="//unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="./styles.css" rel="stylesheet" />
+  </head>
+  <body
+    class="font-sans antialiased text-gray-100 leading-normal tracking-wider bg-cover"
+    style="background-image: url('//source.unsplash.com/GQ_4WT3t_Tg');"
+  >
+    <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-8 lg:my-0">
+      <!--Main Col-->
+      <div
+        id="app"
+        class="w-full rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0 bg-gray-900"
+      >
+        <div class="p-4 md:p-12 text-center">
+          <h1 class="text-3xl font-bold lg:pt-0">Markov Chain with N-gram</h1>
+          <p class="pb-4 text-sm">
+            Choose mode. Use text or get text from a url. Lower N-gram order is more random
+          </p>
+          <div class="mx-auto lg:mx-0 pt-3 border-b-2 border-teal-500 opacity-25"></div>
+
+          <p class="pt-4 text-2xl font-bold flex items-center justify-center">
+            Mode
+          </p>
+          <label class="inline-flex items-center">
+            <input type="radio" class="form-radio" value="by-char" v-model="mode" />
+            <span class="ml-2">N-gram by character</span>
+          </label>
+          <label class="inline-flex items-center ml-6">
+            <input type="radio" class="form-radio" value="by-word" v-model="mode" />
+            <span class="ml-2">N-gram by word</span>
+          </label>
+
+          <p class="pt-4 text-2xl font-bold flex items-center justify-center">
+            Input Options
+          </p>
+          <select
+            class="block appearance-none w-full border border-gray-400 hover:border-gray-500 px-2 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-gray-700"
+            v-model="sourceType"
+          >
+            <option value="text">Text</option>
+            <option value="url">Url</option>
+          </select>
+          <textarea
+            class="text-gray-700 mt-4 w-full min-h-full resize border rounded focus:outline-none focus:shadow-outline"
+            v-model="source"
+          ></textarea>
+
+          <p class="pt-4 text-2xl font-bold flex items-center justify-center">
+            Output Options
+          </p>
+          <div class="flex">
+            <div class="flex flex-col w-full pr-2">
+              <label class="block uppercase tracking-wide text-xs font-bold" for="grid-first-name">
+                N-gram Order
+              </label>
+              <input
+                class="appearance-none block bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="number"
+                placeholder="Order"
+                v-model="order"
+              />
+            </div>
+            <div class="flex flex-col w-full pl-2">
+              <label class="block uppercase tracking-wide text-xs font-bold" for="grid-first-name">
+                Output Size
+              </label>
+              <input
+                class="appearance-none block bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="number"
+                placeholder="Output Size"
+                v-model="outputSize"
+              />
+            </div>
+          </div>
+
+          <button
+            class="mt-4 bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full"
+            @click="generate()"
+          >
+            Generate
+          </button>
+
+          <div class="mt-8">
+            <div class="progress-line" v-show="loading"></div>
+          </div>
+
+          <p class="pt-4 text-2xl font-bold flex items-center justify-center">
+            Output
+          </p>
+          <textarea
+            rows="5"
+            class="text-gray-700 w-full min-h-full resize border rounded focus:outline-none focus:shadow-outline"
+            v-model="output"
+          ></textarea>
+        </div>
+      </div>
+
+      <script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="./app.js"></script>
+    </div>
+  </body>
+</html>
